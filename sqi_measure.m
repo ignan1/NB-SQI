@@ -8,23 +8,42 @@ function [sqi, dia, P, feat] = sqi_measure(signal, fs)
 %   P      - location of characteristic points (11 x p-1)
 %   feat   - extracted features of every periods (31 x p-1)
 %
-% Author: Anna Ignácz 2020
-% anna.ignacz95@gmail.com
-%
+% ---------------------------------------------------------
+% MIT License
+% 
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+% 
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
 
 if size(signal, 1) > 1, signal = signal'; end
 
 featnum = 30;
 [out, dia] = check_pulse(signal, fs);
 if out
-    sqi = 0;%featnum;%"No pulse found";
+    sqi = 0;                    % "No pulse found";
     P = [];
     feat = zeros(1,featnum);
     if isempty(dia), dia = 1; end
     return
 end
 
-% check every period
 feat = []; sqi = []; dia_new = [];
 P = []; prev_feat = [];
 for i = 1:length(dia)-1

@@ -1,4 +1,15 @@
 function dia = find_dia(signal_or, fs)
+% Input:
+%   signal_or - ABP signal (1 x N)
+%   fs        - sampling frequency (Hz)
+% Output:
+%   dia       - index of diastolic points
+%
+% ---------------------------------------------------------
+% MIT License 
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+%
+
     start = 1;
     not_end = 1;
     

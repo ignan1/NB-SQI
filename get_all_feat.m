@@ -1,5 +1,17 @@
 function feat = get_all_feat(period, points, fs, categ)
-    
+% Input:
+%   period - ABP signal corresponding to 1 heart cycle (1 x N)
+%   points - Characteristic points (1 x 9)
+%   fs     - sampling frequency (Hz)
+%   categ  - Type of the waveform (1 peak, 2 peak, 3 peak, or refl before sys)
+% Output:
+%   feat   - All calculated feature (32 x 1)
+%
+% ---------------------------------------------------------
+% MIT License 
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+%
+
     period = (period - min(period))/max(period - min(period));
     %[2, 4, 5, 7, 10, 11, 12, 13, 17, 18, 20, 21, 28]
     %[1 3 6 8 9 14 15 16 19 22 23 24 25 26 27 29 30 31 32

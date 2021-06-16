@@ -1,4 +1,16 @@
 function out = check_period_quick(period, points, fs)
+% Input:
+%   period - ABP signal corresponding to 1 heart cycle (1 x N)
+%   points - Characteristic points (1 x 9)
+%   fs     - sampling frequency (Hz)
+% Output:
+%   out    - result of the fast checks (1 x 10)
+%
+% ---------------------------------------------------------
+% MIT License 
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+%
+
     %points = [infl1 p0 infl2 sis o1 s1 p1 o2 s2 p2];
 
     period_norm = (period-min(period))/max(period-min(period));

@@ -1,5 +1,15 @@
 function points = find_dsnp_period(period, fs)
-    
+% Input:
+%   period - ABP signal corresponding to 1 heart cycle (1 x N)
+%   fs     - sampling frequency (Hz)
+% Output:
+%   points - characteristic points
+%
+% ---------------------------------------------------------
+% MIT License 
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+%
+
     period = (period-min(period))/max(period-min(period));
     d = movmean(diff(period),0.05*fs,'Endpoints','shrink');
     

@@ -1,5 +1,17 @@
 function [sqi, feat, extra, points] = sqi_period(period, fs, prev_feat)
-    
+% Input:
+%   period - ABP signal corresponding to 1 heart cycle (1 x N)
+%   fs     - sampling frequency (Hz)
+% Output:
+%   sqi    - sqi of the period
+%   feat   - features of the period (1 x 30)
+%   P      - location of characteristic points (11 x p-1)
+%   feat   - extracted features of every periods (31 x p-1)
+%
+% ---------------------------------------------------------
+% MIT License
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+%
     featnum = 30;
     % Check the length of the period
     [out, extra, new_period] = check_period_length(period, fs);
