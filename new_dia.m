@@ -10,7 +10,8 @@ function extra = new_dia(period, fs)
 % ---------------------------------------------------------
 %
 % Released under MIT license.  
-% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+% Copyright (c) 2021 Anna Ignácz, Sándor Földi, Péter Sótonyi, György Cserey
+% For any comment or bug report, please send e-mail to: anna.ignacz95@gmail.com
 %
 
     extra = [];

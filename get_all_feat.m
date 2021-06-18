@@ -9,7 +9,8 @@ function feat = get_all_feat(period, points, fs, categ)
 %
 % ---------------------------------------------------------
 % MIT License 
-% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+% Copyright (c) 2021 Anna Ignácz, Sándor Földi, Péter Sótonyi, György Cserey
+% For any comment or bug report, please send e-mail to: anna.ignacz95@gmail.com
 %
 
     period = (period - min(period))/max(period - min(period));

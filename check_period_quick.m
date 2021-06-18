@@ -9,7 +9,8 @@ function out = check_period_quick(period, points, fs)
 % ---------------------------------------------------------
 %
 % Released under MIT license.  
-% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+% Copyright (c) 2021 Anna Ignácz, Sándor Földi, Péter Sótonyi, György Cserey
+% For any comment or bug report, please send e-mail to: anna.ignacz95@gmail.com
 %
 
     %points = [infl1 p0 infl2 sis o1 s1 p1 o2 s2 p2];

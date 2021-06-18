@@ -11,7 +11,7 @@ function [sqi, feat, extra, points] = sqi_period(period, fs)
 % ---------------------------------------------------------
 % MIT License
 % 
-% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+% Copyright (c) 2021 Anna Ignácz, Sándor Földi, Péter Sótonyi, György Cserey
 % 
 % Permission is hereby granted, free of charge, to any person obtaining a copy
 % of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,8 @@ function [sqi, feat, extra, points] = sqi_period(period, fs)
 % LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 % OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 % SOFTWARE.
+%
+% For any comment or bug report, please send e-mail to: anna.ignacz95@gmail.com
 %
 
     if size(period, 1) > 1, period = period'; end
