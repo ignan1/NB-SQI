@@ -30,43 +30,47 @@ function [sqi, dia, P, feat] = sqi_measure(signal, fs)
 % LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 % OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 % SOFTWARE.
+%
 
+    if size(signal, 1) > 1, signal = signal'; end
 
-if size(signal, 1) > 1, signal = signal'; end
-
-featnum = 30;
-[out, dia] = check_pulse(signal, fs);
-if out
-    sqi = 0;                    % "No pulse found";
-    P = [];
-    feat = zeros(1,featnum);
-    if isempty(dia), dia = 1; end
-    return
-end
-
-feat = []; sqi = []; dia_new = [];
-P = []; prev_feat = [];
-for i = 1:length(dia)-1
-    period = signal(dia(i):dia(i+1)-1);
-    [sqi_p, prev_feat, extra, points] = sqi_period(period, fs, prev_feat);
-    feat = [feat, prev_feat'];
-    if ~isempty(extra)
-        d = dia(i);
-        for j = 1:length(extra)
-            d = d+extra-1;
-            dia_new = [dia_new; d];
-        end
+    featnum = 30;
+    [out, dia] = check_pulse(signal, fs);
+    if out
+        sqi = 0;                    % "No pulse found";
+        P = [];
+        feat = zeros(1,featnum);
+        if isempty(dia), dia = 1; end
+        return
     end
-    sqi = [sqi, sqi_p]; 
-    points(points > 0) = dia(i)+points(points > 0)-1;
-    P = [P; dia(i), points];
-end
-P = P';
 
-if ~isempty(dia_new)
-    dia = [dia, dia_new];
-    dia = sort(dia,'asc');
-    % P-t és feat-et javítani
-end
+    feat = []; sqi = []; dia_new = [];
+    P = []; prev_feat = [];
+    for i = 1:length(dia)-1
+        period = signal(dia(i):dia(i+1)-1);
+        [sqi_p, prev_feat, extra, points] = sqi_period(period, fs);
+        feat = [feat, prev_feat'];
+
+        % If there was an extra period (WIP)
+        if ~isempty(extra)
+            d = dia(i);
+            for j = 1:length(extra)
+                d = d+extra-1;
+                dia_new = [dia_new; d];
+            end
+        end
+
+        sqi = [sqi, sqi_p];
+        points(points > 0) = dia(i) + points(points > 0)-1;
+        P = [P; dia(i), points];
+    end
+    P = P';
+
+    % If there was an extra period (WIP)
+    if ~isempty(dia_new)
+        dia = [dia, dia_new];
+        dia = sort(dia,'asc');
+        % Correct P and feat
+    end
 
 end

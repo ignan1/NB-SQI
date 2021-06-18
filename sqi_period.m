@@ -1,18 +1,42 @@
-function [sqi, feat, extra, points] = sqi_period(period, fs, prev_feat)
+function [sqi, feat, extra, points] = sqi_period(period, fs)
 % Input:
 %   period - ABP signal corresponding to 1 heart cycle (1 x N)
 %   fs     - sampling frequency (Hz)
 % Output:
 %   sqi    - sqi of the period
-%   feat   - features of the period (1 x 30)
-%   P      - location of characteristic points (11 x p-1)
-%   feat   - extracted features of every periods (31 x p-1)
+%   feat   - features of the period (1 x 31)
+%   extra  - new period, if this was too long (WIP)
+%   points - characteristic points (1 x 10)
 %
 % ---------------------------------------------------------
 % MIT License
+% 
 % Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+% 
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
 %
+
+    if size(period, 1) > 1, period = period'; end
+
+    % Number of evaluated features
     featnum = 30;
+    
     % Check the length of the period
     [out, extra, new_period] = check_period_length(period, fs);
             
@@ -23,45 +47,23 @@ function [sqi, feat, extra, points] = sqi_period(period, fs, prev_feat)
     else
         % Check the characteristic points
         points = find_dsnp_period(period, fs);        
-        %categ = max([4*(points(2) > 0) sum([points(4) > 0 (points(6) > 0 || points(7) > 0) (points(9) > 0 || points(10) > 0)])]);
+        % Category of the period (1 peak, 2 peak, 3 peak, 2nd peak before sys peak)
         categ = max([4*(points(2) > 0) sum([points(4) > 0 (points(7) > 0) (points(9) > 0 || points(10) > 0)])]);
         out = check_period_quick(period, points, fs);
         if sum(out) > 0
-            sqi = 1;%max(0,5-sum(out));%string(num2str(20*sum(out)));
             feat = [zeros(1,featnum) categ];
+            sqi = 1;
         else
-            %feat = get_features_period(period, points, fs, categ);
-            %out = check_features_period(feat, points(2));
-            feat = get_all_feat_ever(period, points, fs, categ);
-            if sum(out) > 0, sqi = max(5-sum(out),0); else %string(num2str(sum(out))); else
-                feat = get_all_feat(period, points, fs, categ);
-                sqi = get_dist_from_avr_feat_period(feat);                
-            end
-        end
-        
-%         if out
-%             sqi = "Bad char points";
-%             feat = prev_feat;
-%         else            
-%             % Check the features
-%             feat = get_features_period(period, points, fs);
-%             out = check_features_period(feat);
-%             if out
-%                 sqi = "Bad features";
-%                 feat = prev_feat;
-%             else
-%     
-%             sqi = "Seems good";
-%             
-%             end
-%         end
+            feat = get_all_feat(period, points, fs, categ);
+            sqi = get_dist_from_avr_feat_period(feat);
+        end        
     end
 
+    % If there is an extra period
     if ~isempty(extra)
         [sqi_new, feat, extra_new] = sqi_period(new_period, fs, feat);
         sqi = [sqi, sqi_new];
         extra = [extra, extra_new];
-        % featet is megcsinálni
     end
     
 end

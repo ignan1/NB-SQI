@@ -1,14 +1,15 @@
 function [SW, DW] = get_sys_width(period,points,fs)
 % Input:
 %   period - ABP signal corresponding to 1 heart cycle (1 x N)
-%   points - Characteristic points (1 x 9)
+%   points - Index of systolic and dicrotic wave (1 x 2)
 %   fs     - sampling frequency (Hz)
 % Output:
 %   SW     - width of sys wave
 %   DW     - width of dicrotic wave
 %
 % ---------------------------------------------------------
-% MIT License 
+%
+% Released under MIT license.  
 % Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
 %
 

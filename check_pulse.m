@@ -3,18 +3,17 @@ function [out, dia] = check_pulse(signal, fs)
 %   signal - ABP signal (1 x N)
 %   fs     - sampling frequency (Hz)
 % Output:
-%   sqi    - sqi of every periods (1 x p-1)
+%   out    - 1 if there is no pulse found
 %   dia    - location of onset points (1 x p)
-%   P      - location of characteristic points (11 x p-1)
-%   feat   - extracted features of every periods (31 x p-1)
 %
-% Author: Anna Ignácz 2020
-% anna.ignacz95@gmail.com
+% ---------------------------------------------------------
+%
+% Released under MIT license.  
+% Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
 %
     out = length(signal) < fs;
-    if out
-        dia = [];
-    else
+    dia = [];
+    if ~out
         signal_nobase = signal-movmean(movmean(movmean(signal,fs),fs),fs);
         dia = find_dia(signal_nobase, fs);
         for i = 1:length(dia)-1
@@ -39,6 +38,6 @@ function [out, dia] = check_pulse(signal, fs)
         end
         
         out = length(dia) < 2 || length(dia) < (length(signal)/fs)/5 || length(dia) > (length(signal)/fs)*10;
+        dia = unique(dia);
     end
-    dia = unique(dia);
 end

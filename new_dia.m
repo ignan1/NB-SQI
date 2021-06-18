@@ -8,7 +8,8 @@ function extra = new_dia(period, fs)
 %   extra  - extra dia points, was missed earlier (1 x p)
 %
 % ---------------------------------------------------------
-% MIT License
+%
+% Released under MIT license.  
 % Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
 %
 

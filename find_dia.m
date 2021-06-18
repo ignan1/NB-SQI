@@ -6,28 +6,25 @@ function dia = find_dia(signal_or, fs)
 %   dia       - index of diastolic points
 %
 % ---------------------------------------------------------
-% MIT License 
+%
+% Released under MIT license.  
 % Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
 %
 
     start = 1;
-    not_end = 1;
     
     dia = [];
-    mp = 5; % hány másodpercenkét normalizáljuk
+    div_sec = 5; % second - to divide the signal and normalize
     while start < length(signal_or)
         
-        signal = signal_or(max(1,start-fs):min(start + mp*fs,length(signal_or)));
+        signal = signal_or(max(1,start-fs):min(start + div_sec*fs,length(signal_or)));
         signal = (signal-min(signal))/max(signal-min(signal));
         
         diff_signal = diff(signal);
         peaks = find(diff_signal(1:end-1) > 0 & diff_signal(2:end) <= 0) + 1;
         
         sis = peaks(signal(peaks) > 0.6);
-        
-%        for j = 2:length(sis)
-            
-        
+                
         if ~isempty(sis)
             [m, h] = min(signal(1:sis(1)));
             if m < 0.3

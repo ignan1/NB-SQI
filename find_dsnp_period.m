@@ -3,10 +3,11 @@ function points = find_dsnp_period(period, fs)
 %   period - ABP signal corresponding to 1 heart cycle (1 x N)
 %   fs     - sampling frequency (Hz)
 % Output:
-%   points - characteristic points
+%   points - characteristic points (1 x 10)
 %
 % ---------------------------------------------------------
-% MIT License 
+%
+% Released under MIT license.  
 % Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
 %
 
@@ -32,7 +33,7 @@ function points = find_dsnp_period(period, fs)
         [~, infl1] = max(d(1:sis));
     end
     
-% find if there is a peak before sistolic peak
+% find if there is a peak before systolic peak
     if length(peaks) > 1
         [~, h] = max(d(max(1,peaks(2)-floor(1*fs/100)):min(peaks(2)+floor(1*fs/100),length(d))));
         infl2 = max(1,peaks(2)-floor(1*fs/100))+h-1;

@@ -2,14 +2,15 @@ function [out, extra, new_period] = check_period_length(period, fs, feat)
 % Input:
 %   period     - ABP signal corresponding to 1 heart cycle (1 x N)
 %   fs         - sampling frequency (Hz)
-%   feat       - features of the period
+%   feat       - features of the period (1 x 10)
 % Output:
-%   out        - width of sys wave
-%   extra      - width of dicrotic wave
-%   new_period - 
+%   out        - 1 if the period is too long or too short
+%   extra      - extra onset point, if an onset point was missed (WIP)
+%   new_period - divide the period, if an onset point was missed (WIP) (1 x M)
 %
 % ---------------------------------------------------------
-% MIT License 
+%
+% Released under MIT license.  
 % Copyright (c) 2021 Anna Ignácz anna.ignacz95@gmail.com
 %
 
