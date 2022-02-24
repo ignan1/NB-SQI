@@ -7,3 +7,7 @@ The objective of this code is to measure the quality of continuous blood pressur
 ### Running
 - Quality of a heart-cycle long signal: `sqi_period.m`
 - Quality of longer signal: `sqi_measure.m`
+
+### Reference
+Ignacz, A., Földi, S., Sotonyi, P., & Cserey, G. (2021). NB-SQI: A novel non-binary signal quality index for continuous blood pressure waveforms. Biomedical Signal Processing and Control, 70, 103035.
+https://doi.org/10.1016/j.bspc.2021.103035
